@@ -16,4 +16,4 @@
    - compute genotype PCs
    - create covariates.txt file for downstream eQTL calling 
   
- - Run **call_eQTLs.R** for each combination of cell type and chromosome. This uses matrix-eQTL to call cis-eQTLs by testing all SNPs that are within a 1Mb distance from the gene TSS and have a MAF > 0.05. Further, for each gene, we select the gene-SNP pair that has the lowest p-value after Bonferroni correcting within each gene and then perform BH correction across genes to obtain significant SNPs at FDR of 0.05. 
+ - Run **call_eQTLs.R** for each combination of cell type and chromosome. This uses matrix-eQTL to call cis-eQTLs by testing all SNPs that are within a 1Mb distance from the gene TSS and have a MAF > 0.05. Further, for each gene, we select the gene-SNP pair that has the lowest p-value after Bonferroni correction within each gene and then perform BH correction across genes to obtain significant eGene-eSNP pairs at FDR of 0.05. 
