@@ -15,3 +15,4 @@ all_summary_stats <- all_summary_stats[all_summary_stats$adj_p_value < 0.05, ]
 saveRDS(all_summary_stats, paste0(significant_res_dir, cell_type, ".rds"))
 
 # Find MAF matched SNPs
+

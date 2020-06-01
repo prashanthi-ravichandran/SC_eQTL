@@ -10,8 +10,9 @@ library(Seurat)
 library(genoscapeRtools)
 library(RColorBrewer)
 require(data.table)
+library(DESeq2)
 
-cell_type <- "CD14_monocytes"
+cell_type <- "megakaryocytes"
 dat.dir <- "/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/"
 plots.dir <- "/work-zfs/abattle4/prashanthi/Single_cell_eQTL/plots/"
 
@@ -57,16 +58,23 @@ write.table(genepos_df,
             eol = "\n", na = "NA", dec = ".", row.names = TRUE, col.names = TRUE, qmethod = c("escape", "double"), fileEncoding = "")
 
 
-# Compute expression PCs by approximating
-scaled.pseudobulk <- scale(t(pseudobulk))
+# Normalize the pseudobulk data using rlog from deSEQ
+sample_info <- data.frame(pop_cov, batch_cov)
+rownames(sample_info) <- uniq_individuals
+DESeq.ds <- DESeqDataSetFromMatrix(countData = pseudobulk, colData = sample_info, design = ~ batch_cov)
+rld <- rlog(DESeq.ds, blind=TRUE)
+#head(assay(rld), 3)
+log_normalized  <- assay(rld)
+
+scaled.pseudobulk <- scale(t(log_normalized))
 genes.na <- colnames(scaled.pseudobulk)[colSums(is.na(scaled.pseudobulk)) > 0]
 scaled.pseudobulk <- scaled.pseudobulk[ ,!colnames(scaled.pseudobulk) %in% genes.na]
 expr.usv <- svd(scaled.pseudobulk)
 expr_pcs <- expr.usv$u
 pc.percent <- ((expr.usv$d^2)/sum((expr.usv$d^2)))*100
 
-pseudobulk <- pseudobulk[!rownames(pseudobulk) %in% genes.na, ]
-write.table(pseudobulk,
+expr_save <- t(scaled.pseudobulk)
+write.table(expr_save,
             file = paste0(dat.dir, "/expr/", cell_type,".txt"), quote = TRUE, sep = "\t",
             eol = "\n", na = "NA", dec = ".", row.names = TRUE, col.names = TRUE, qmethod = c("escape", "double"), fileEncoding = "")
 
@@ -115,6 +123,8 @@ tab <- data.frame(sample.id = uniq_individuals,
                   EV3 = pca$eigenvect[,3],    # the third eigenvector
                   EV4 = pca$eigenvect[,4],    # the fourth eigenvector
                   EV5 = pca$eigenvect[,5],    # the fifth eigenvector
+                  EV6 = pca$eigenvect[,6],    # the sixth eigenvector
+                  EV7 = pca$eigenvect[,7],    # the seventh eigenvector
                   stringsAsFactors = FALSE)
 head(tab)
 
@@ -137,13 +147,13 @@ dev.off()
 
 eigen_vectors <- pca[["eigenvect"]]
 rownames(eigen_vectors) <- uniq_individuals
-eigen_vectors <- eigen_vectors[ ,1:5]
-colnames(eigen_vectors) <- c("V1","V2","V3","V4","V5")
+eigen_vectors <- eigen_vectors[ ,1:7]
+colnames(eigen_vectors) <- c("V1","V2","V3","V4","V5","V6","V7")
 
 covariates <- cbind(eigen_vectors, expr_pcs[ ,1:15])
-colnames(covariates) <- c("V1", "V2", "V3", "V4", "V5", "PC1", "PC2", "PC3", 
+colnames(covariates) <- c("V1", "V2", "V3", "V4", "V5","V6","V7", "PC1", "PC2", "PC3", 
                           "PC4", "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", 
-                          "PC11", "PC12", "PC13", "PC14", "PC15")
+                          "PC11", "PC12", "PC13", "PC14", "PC15") 
 covariates <- t(covariates)
 
 write.table(covariates,

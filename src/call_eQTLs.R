@@ -106,7 +106,7 @@ snpspos$chr = as.numeric(snpspos$chr)
 maf.list = vector('list', length(snps))
 for(sl in 1:length(snps)) {
   slice = snps[[sl]];
-  maf.list[[sl]] = rowMeans(slice,na.rm=TRUE)/2;
+  maf.list[[sl]] = rowMeans(sl:.*ice,na.rm=TRUE)/2;
   maf.list[[sl]] = pmin(maf.list[[sl]],1-maf.list[[sl]]);
 }
 maf = unlist(maf.list)

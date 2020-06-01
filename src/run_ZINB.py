@@ -30,6 +30,9 @@ args = get_args()
 save_dir = "/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/UMI_counts/expr/"
 expr = pd.read_csv(save_dir + args.cell_type + ".csv")
 
+pseudobulk = pd.read_csv("/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/expr/" + args.cell_type  + ".txt", sep = "\t")
+pseudobulk = pseudobulk[~(pseudobulk == 0).any(axis=1)]
+expr = expr.loc[:, np.insert(pseudobulk.index.values, 0, "index", axis=0)]
 
 meta_data = pd.read_csv("/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/UMI_counts/metadata/" + args.cell_type + ".csv")
 print(meta_data['index'].equals(expr['index']))
@@ -45,7 +48,7 @@ print(meta_data.well.value_counts())
 umi = expr.iloc[:, 1:].values
 umi
 
-size_factor = pd.read_csv("/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/size_factor/B_cells.csv")
+size_factor = pd.read_csv("/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/size_factor/" + args.cell_type +".csv")
 print(size_factor['index'].equals(expr['index']))
 size_factor = size_factor['total_counts'].values.reshape((umi.shape[0],1))
 
