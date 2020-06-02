@@ -1,0 +1,63 @@
+SNP pruning based on LD:
+Excluding 0 SNP on non-autosomes
+Excluding 0 SNP (monomorphic: TRUE, MAF: NaN, missing rate: NaN)
+Working space: 119 samples, 3,725,027 SNPs
+    using 1 (CPU) core
+    sliding window: 500,000 basepairs, Inf SNPs
+    |LD| threshold: 0.2
+    method: composite
+Chromosome 1: 1.58%, 4,570/289,326
+Chromosome 2: 1.43%, 4,378/306,576
+Chromosome 3: 1.43%, 3,822/267,211
+Chromosome 4: 1.32%, 3,619/274,356
+Chromosome 5: 1.42%, 3,420/240,163
+Chromosome 6: 1.33%, 3,318/249,038
+Chromosome 7: 1.46%, 3,215/219,557
+Chromosome 8: 1.37%, 2,792/203,481
+Chromosome 9: 1.67%, 2,616/157,102
+Chromosome 10: 1.49%, 2,858/191,602
+Chromosome 11: 1.45%, 2,688/185,059
+Chromosome 12: 1.56%, 2,817/180,685
+Chromosome 13: 1.50%, 2,067/138,138
+Chromosome 14: 1.56%, 1,883/120,800
+Chromosome 15: 1.76%, 1,882/107,171
+Chromosome 16: 1.83%, 2,055/112,444
+Chromosome 17: 1.91%, 1,923/100,936
+Chromosome 18: 1.74%, 1,866/107,115
+Chromosome 19: 1.86%, 1,581/84,995
+Chromosome 20: 1.81%, 1,526/84,410
+Chromosome 21: 1.69%, 922/54,575
+Chromosome 22: 1.95%, 981/50,287
+56,799 markers are selected in total.
+Principal Component Analysis (PCA) on genotypes:
+Excluding 3,668,228 SNPs (non-autosomes or non-selection)
+Excluding 0 SNP (monomorphic: TRUE, MAF: NaN, missing rate: NaN)
+Working space: 119 samples, 56,799 SNPs
+    using 2 (CPU) cores
+PCA:    the sum of all selected genotypes (0,1,2) = 4627242
+CPU capabilities: Double-Precision SSE2
+Mon Jun  1 15:33:37 2020    (internal increment: 32732)
+[..................................................]  0%, ETC: ---        [==================================================] 100%, completed, 1s
+Mon Jun  1 15:33:38 2020    Begin (eigenvalues and eigenvectors)
+Mon Jun  1 15:33:38 2020    Done.
+[1] 5.11 1.45 1.08 1.02 0.97 0.92
+             sample.id         EV1         EV2          EV3         EV4
+1           X1731_1731 -0.10005587  0.03499562  0.006352738  0.09437092
+2           X1760_1760 -0.09732136  0.01991935  0.017352295 -0.03310308
+3           X1775_1775 -0.08853525 -0.01652691 -0.016588370  0.06947454
+4 X901560200_901560200 -0.10116599  0.01342172  0.007767635 -0.08354077
+5 X900759200_900759200 -0.10650788  0.02531574  0.003636164 -0.06212721
+6           X1567_1567  0.09503218  0.01789289  0.017286705  0.01257149
+           EV5          EV6         EV7
+1  0.192194506  0.023209046  0.24622469
+2 -0.066450406 -0.022098292 -0.19636012
+3  0.171324695 -0.095562901 -0.02012228
+4 -0.121812344 -0.003911747 -0.02662118
+5 -0.007100174 -0.026060797 -0.03649310
+6  0.032027609  0.042385531  0.06031746
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 

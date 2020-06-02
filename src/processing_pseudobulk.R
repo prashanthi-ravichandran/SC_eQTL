@@ -1,5 +1,5 @@
 rm(list = ls())
-showfile.gds(closeall=TRUE)
+#showfile.gds(closeall=TRUE)
 # This script merges cells which belong to the same individual, experiment and day
 # Further we format the genotype matrix
 # We also compute expression PCs to be used in downstream analysis for our samples
@@ -11,7 +11,12 @@ library(genoscapeRtools)
 library(RColorBrewer)
 require(data.table)
 library(DESeq2)
+library(gdsfmt)
+library(SNPRelate)
 
+inputargs <- commandArgs(TRUE)
+showfile.gds(closeall=TRUE)
+#cell_type <- inputargs[1]
 cell_type <- "megakaryocytes"
 dat.dir <- "/work-zfs/abattle4/prashanthi/Single_cell_eQTL/data/"
 plots.dir <- "/work-zfs/abattle4/prashanthi/Single_cell_eQTL/plots/"
